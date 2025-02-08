@@ -1,0 +1,29 @@
+GET: http://localhost:8080/api/movimientos/resumen/T
+
+POST: http://localhost:8080/api/movimientos/conDetalles
+
+{
+    "idEmpresa": 1002,
+    "descripcion": "Reabastecimiento de insumos",
+    "bodegaOrigenCodigo": "BOD-03",
+    "bodegaDestinoCodigo": "BOD-04",
+    "fechaCreacion": "2025-02-08T13:22:58.231027",
+    "fechaEntrega": "2025-02-12T00:00:00",
+    "estado": "T",
+    "detalles": [
+        {
+            "itemCodigo": "ITEM-003",
+            "cantidadEnviada": 20
+        }
+    ]
+}
+
+
+GET: http://localhost:8080/api/movimientos/1
+
+
+GET: http://localhost:8080/api/movimientos/estado/T
+
+GET: http://localhost:8080/api/movimientoDetalles/2
+
+GET: http://localhost:8080/api/movimientoDetalles/movimiento/1

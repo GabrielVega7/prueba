@@ -1,0 +1,62 @@
+CREATE TABLE testswisslub.movimiento (
+    id SERIAL PRIMARY KEY,
+    id_empresa INT CHECK (id_empresa IN (1001, 1002)),
+    descripcion TEXT NOT NULL,
+    bodega_origen_codigo VARCHAR(10) CHECK (bodega_origen_codigo IN ('BOD-01', 'BOD-02', 'BOD-03', 'BOD-04')),
+    bodega_destino_codigo VARCHAR(10) CHECK (bodega_destino_codigo IN ('BOD-01', 'BOD-02', 'BOD-03', 'BOD-04')),
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_entrega TIMESTAMP,
+    estado CHAR(1) DEFAULT 'P' CHECK (estado IN ('P', 'T', 'E'))
+);
+
+
+
+
+
+CREATE TABLE testswisslub.movimiento_detalle (
+    id SERIAL PRIMARY KEY,
+    movimiento_id INT REFERENCES testswisslub.movimiento(id) ON DELETE CASCADE,
+    item_codigo VARCHAR(20) NOT NULL,
+    cantidad_enviada INT CHECK (cantidad_enviada > 0)
+);
+
+
+
+
+
+INSERT INTO testswisslub.movimiento (id_empresa, descripcion, bodega_origen_codigo, bodega_destino_codigo, fecha_entrega, estado)
+VALUES
+(1001, 'Envío de productos electrónicos', 'BOD-01', 'BOD-02', '2025-02-10', 'P'),
+(1002, 'Reabastecimiento de insumos', 'BOD-03', 'BOD-04', '2025-02-12', 'T'),
+(1002, 'Devolución de mercancía', 'BOD-05', 'BOD-06', '2025-02-14', 'P'),
+(1001, 'Distribución de repuestos', 'BOD-07', 'BOD-08', '2025-02-15', 'T'),
+(1002, 'Envío de materias primas', 'BOD-09', 'BOD-10', '2025-02-17', 'P'),
+(1002, 'Transferencia entre bodegas', 'BOD-11', 'BOD-12', '2025-02-18', 'T'),
+(1001, 'Retiro de mercancía vencida', 'BOD-13', 'BOD-14', '2025-02-19', 'P'),
+(1002, 'Ajuste de inventario', 'BOD-15', 'BOD-16', '2025-02-20', 'T'),
+(1002, 'Envío de equipo de oficina', 'BOD-17', 'BOD-18', '2025-02-22', 'P'),
+(1001, 'Transferencia entre empresas', 'BOD-19', 'BOD-20', '2025-02-25', 'T');
+
+
+
+INSERT INTO testswisslub.movimiento_detalle (movimiento_id, item_codigo, cantidad_enviada)
+VALUES
+(1, 'ITEM-001', 50),
+(1, 'ITEM-002', 30),
+(2, 'ITEM-003', 20),
+(3, 'ITEM-004', 15),
+(3, 'ITEM-005', 10),
+(4, 'ITEM-006', 40),
+(4, 'ITEM-007', 25),
+(5, 'ITEM-008', 60),
+(5, 'ITEM-009', 35),
+(6, 'ITEM-010', 45),
+(7, 'ITEM-011', 50),
+(7, 'ITEM-012', 30),
+(8, 'ITEM-013', 25),
+(8, 'ITEM-014', 10),
+(9, 'ITEM-015', 20),
+(9, 'ITEM-016', 40),
+(10, 'ITEM-017', 55),
+(10, 'ITEM-018', 30),
+(10, 'ITEM-019', 25);
